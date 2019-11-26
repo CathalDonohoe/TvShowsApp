@@ -40,8 +40,8 @@ DeleteTvShow(e){
 
                 
                 
-<Card  border="primary" bg="danger" text="black"> 
-  <Card.Img align="center" width="100" height="400" varient="top" src={this.props.tvshow.poster}/>
+<Card border="primary" bg="danger" text="black"> 
+  <Card.Img align="center" varient="top" src={this.props.tvshow.poster}/>
  
     <Card.Header>{this.props.tvshow.title}</Card.Header>
       <Card.Body>
