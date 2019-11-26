@@ -28,7 +28,7 @@ DeleteTvShow(e){
 
     render(){
         return(
-            <div>
+            <div className="cardDiv">
                 {/* <h4>{this.props.movie.Title}</h4>
                 <p>{this.props.movie.Year}</p>
                 <img src={this.props.movie.Poster}></img> */}
@@ -38,9 +38,10 @@ DeleteTvShow(e){
 
 
 
+
+
                 
-                
-<Card border="primary" bg="danger" text="black"> 
+<Card border="primary" bg="warning" text="black"> 
   <Card.Img align="center" varient="top" src={this.props.tvshow.poster}/>
  
     <Card.Header>{this.props.tvshow.title}</Card.Header>
@@ -51,11 +52,12 @@ DeleteTvShow(e){
           </footer>
       </blockquote>
     </Card.Body>
-    <Button text="black" variant="warning" onClick={this.DeleteTvShow}>Delete TV Show</Button>
+    <Button text="black" variant="danger" onClick={this.DeleteTvShow}>Delete TV Show</Button>
     <Link text="black" to={"/edit/"+this.props.tvshow._id} className="btn btn-primary">Edit TV Show</Link> 
 
 
 </Card>
+<br/>
             </div>
         )
     }

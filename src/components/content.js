@@ -11,7 +11,7 @@ class Content extends React.Component {
     return (
       <div style={{backgroundColor: "lightblue"}} className="App">
         <h1 style={{color: "red"}}>Welcome to the collection of TV Shows</h1>
-        <h2>It is {new Date().toLocaleTimeString()}.</h2>
+
 
 
 <Carousel>
