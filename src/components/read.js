@@ -30,8 +30,8 @@ class Read extends React.Component{
         };
 
         return(
-            <div style={mystyle}>
-                <h1>Please view some poplar TV Shows below</h1>
+            <div style={mystyle} className="App">
+                <h1>Please view some popular TV Shows below</h1>
                 
                 <TvShows myTvShows={this.state.tvshows}></TvShows>
                 

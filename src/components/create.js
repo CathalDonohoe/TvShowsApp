@@ -51,14 +51,14 @@ class Create extends React.Component {
 
   render() {
     return (
-      <div>
-        <h1>Hello from Create component</h1>
+      <div className="App">
+        <b><h1 style={{color:"red"}}>Create a new Tv show here</h1></b>
         <form onSubmit={this.handleSubmit}>
 
         <div className='form-group'>
-        <label>
+        <b><label style={{color:"red"}}>
           Tv Show title:
-          </label>
+          </label></b>
 
           <input type="text" 
           className= 'form-control'
@@ -69,9 +69,9 @@ class Create extends React.Component {
         
 
         <div className='form-group'>
-        <label>
+        <b><label style={{color:"red"}}>
           Tv Show Year:
-          </label>
+          </label></b>
 
           <input type="text" 
           className= 'form-control'
@@ -80,9 +80,9 @@ class Create extends React.Component {
 
  
         <div className = 'form-group'>
-          <label>
+          <b><label style={{color:"red"}}>
             Tv Show Poster URL:
-            </label>
+            </label></b>
             <textarea
             rows='3'
             className='form-control'

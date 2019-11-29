@@ -81,14 +81,14 @@ class Edit extends React.Component {
   //---------------------------------------------------------
   render() { //visual piece
     return (
-      <div>
-      <h1 style={{color: "red"}}>Type below to edit the Tv Show {this.state.Title}</h1>
+      <div className="App">
+      <b><h1 style={{color: "red"}}>Type below to edit the Tv Show {this.state.Title}</h1></b>
       <form onSubmit={this.handleSubmit}>
 
       <div className='form-group'>
-      <label>
+      <b><label style={{color: "red"}}>
         Tv Show title:
-        </label>
+        </label></b>
         <input type="text" 
         className= 'form-control'
         value={this.state.Title}
@@ -98,9 +98,9 @@ class Edit extends React.Component {
       
 
       <div className='form-group'>
-      <label>
+      <b><label style={{color: "red"}}>
         Tv Show Year:
-        </label>
+        </label></b>
 
         <input type="text" 
         className= 'form-control'
@@ -109,9 +109,9 @@ class Edit extends React.Component {
 
 
       <div className = 'form-group'>
-        <label>
+        <b><label style={{color: "red"}}>
           Tv Show Poster URL:
-          </label>
+          </label></b>
           <textarea
           rows='3'
           className='form-control'

@@ -16,38 +16,35 @@ class Content extends React.Component {
 
 <Carousel>
   <Carousel.Item>
-  <a href="/read"><img
+  <a href="/read"><img height="600"
       className="d-block w-100"
-      src="https://miro.medium.com/max/3016/1*dBJMknulIZSAC36tTmanVA.jpeg"
+      src="http://images6.fanpop.com/image/photos/34100000/Tv-Shows-tv-shows-family-34187485-1024-768.jpg"
       alt="First slide"
     /></a>
     <Carousel.Caption>
-      <h3>First slide label</h3>
-      <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+      <h3 style={{color: "red"}}>See Top TV Shows</h3>
     </Carousel.Caption>
   </Carousel.Item>
   <Carousel.Item>
-  <a href="/read"><img
+  <a href="/create"><img height="600" width="1200"
       className="d-block w-100"
-      src="https://usercontent1.hubstatic.com/14154714.jpg"
+      src="https://cdn-static.denofgeek.com/sites/denofgeek/files/styles/main_wide/public/6/65/directors_chair.jpg?itok=MyK46J-X"
       alt="Second slide"
     /></a>
 
     <Carousel.Caption>
-      <h3>Second slide label</h3>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+      <h3 style={{color: "red"}}>Add and Edit the list of shows</h3>
     </Carousel.Caption>
   </Carousel.Item>
   <Carousel.Item>
-  <a href="/read"><img
+  <a href="/contact"><img height="600"
       className="d-block w-100"
-      src="http://i-vrox.com/wp-content/uploads/2018/06/series-2.jpg"
+      src="https://akm-img-a-in.tosshub.com/indiatoday/images/story/201909/contact-details-3381225_1280-770x433.jpeg?BbL8N.RKJ6scNSKjUSEXn7_XbVnXN1wp"
       alt="Third slide"
     /></a>
 
     <Carousel.Caption>
-      <h3>Third slide label</h3>
-      <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+      <h3 style={{color: "red"}}>Contact us if any problems</h3>
     </Carousel.Caption>
   </Carousel.Item>
 </Carousel>
