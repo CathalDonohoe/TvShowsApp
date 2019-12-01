@@ -1,3 +1,4 @@
+/* used for the text color and background image */
 .App {
   text-align: center;
   background-image: url(https://venngage-wordpress.s3.amazonaws.com/uploads/2018/09/Simple-Minimalist-Background-Image.jpg);
@@ -8,6 +9,7 @@
   height: 50vmin;
 }
 
+/* used for the footer */
 .foot{
   text-align: center;
   background-color: #17d427;
@@ -30,7 +32,7 @@
   color: #f14c22;
 }
 
-
+/* used for the cards to set image width and margin */
 .cardDiv {
   margin: auto;
   width: 50%;

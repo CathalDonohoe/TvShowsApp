@@ -2,188 +2,102 @@ const express = require('express')
 const app = express()
 const port = 4000
 const path = require('path');
-const bodyParser = require('body-parser'); //to use post request
+const bodyParser = require('body-parser');
 const cors = require('cors');
-const mongoose = require ('mongoose'); // add for mongoDB (lab8) allows to connect to database       (10)
+const mongoose = require('mongoose');
 
-//add the following bellow for (lab8) (10)
+//link for database
 const mongoDB = 'mongodb+srv://admin:admin@cluster0-dmuq6.mongodb.net/test?retryWrites=true&w=majority';
-//mongodb+srv://<username>:<password>@cluster0-dmuq6.mongodb.net/test?retryWrites=true&w=majority
-mongoose.connect(mongoDB, {useNewUrlParser:true}); //connect to the database using this parser
+mongoose.connect(mongoDB, { useNewUrlParser: true }); //connects to database with this parser
 
-//----------------------------------------------------------------------------------------------
-//need to input code below to allow cross talk : CORS
-//must run command (npm install cors)
-//----------------------------------------------------------------------------------------------
-
+//below code allows cross talk with CORS
 app.use(cors());
-app.use(function(req, res, next) {
-res.header("Access-Control-Allow-Origin", "*");
-res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-res.header("Access-Control-Allow-Headers",
-"Origin, X-Requested-With, Content-Type, Accept");
-next();
+app.use(function (req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+    res.header("Access-Control-Allow-Headers",
+        "Origin, X-Requested-With, Content-Type, Accept");
+    next();
 });
-//-------------------------------------------------------------------------------------------------
 
-// to start install (npm install express) 
-// node ServiceWorkerRegistration.js in terminal below to run code*
-
-//NEEDED FOR POST REQUEST BELOW:(parses the body of the html to pass to another page)
-
-// parse application/x-www-forum-urlencoded
-app.use(bodyParser.urlencoded({ extended:false }))
-//parse application/json
+//node server.js in terminal to run code
+app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
-//---------------------------------------------------------------------------------------------------
-//(10) creating a FOLDER for your DATABASE to store into mongoDB!!
-    //AKA WRITING DATA
 
+//creates folder to parse info into database
 const Schema = mongoose.Schema;
 
 const tvShowSchema = new Schema({
-    title:String,
-    year:String,
-    poster:String
+    title: String,
+    year: String,
+    poster: String
 })
 
-const TvShowModel = mongoose.model('tvShows',tvShowSchema) //creates a folder called movie that links movieschema documents to it
+const TvShowModel = mongoose.model('tvShows', tvShowSchema) //creates a folder called tvShows and links the tvShowSchema to it
 
 
+//code for server side deleting
+app.delete('/api/tvshows/:id', (req, res) => {
+    console.log(req.params.id); //shows id for item delted
 
-//---------------------------------------------------------------------------------------------------
-//(1)SENDS BACK A BASIC HELLO WORLD RESPONSE
-app.get('/', (req, res) => res.send('Hello World!'))
-//---------------------------------------------------------------------------------------------------
-//(2)SENDS BACK A BASIC HELLO RESPONSE WHEN ACCESS PAGE 2
-app.get('/differenturl', (req, res) => res.send('Hello from page 2!'))
-
-//---------------------------------------------------------------------------------------------------
-//(3)RETURNING THE URL IN THE PAGE AND IN CONSOLE WHEN RUN
-app.get('/hello/:name', (req, res) => {
-    console.log(req.params.name);
-    res.send('Hello ' + req.params.name)
-})
-//---------------------------------------------------------------------------------------------------
-//(4)TO RETURN A HTML PAGE USING PAGE NAME 
-app.get('/test', (req, res) => {
-    res.sendFile(path.join(__dirname + '/index.html'))
-})
-//---------------------------------------------------------------------------------------------------
-/////SERVER SIDE DELETE///////
-//---------------------------------------------------------------------------------------------------
-
-app.delete('/api/tvshows/:id',(req,res)=>{
-    console.log(req.params.id); //log id to screen
-
-    TvShowModel.deleteOne({_id:req.params.id},(error,data) =>{ //u pick here which one you want to delete! aka "_id"
-        if(error)
+    TvShowModel.deleteOne({ _id: req.params.id }, (error, data) => { //matches selected id to be deleted
+        if (error)
             res.json(error);
         res.json(data);
-
-     })
-})//listen for an id
-
-
-
-//---------------------------------------------------------------------------------------------------
-//(10)
-// http://localhost:4000/api/movies/5db96045f733220998a9b621  <-- the long code got from the mongoDB site which is from  the created movie from client in collections
-
-//when passes up an ID . it pulls out id and finds record with same ID.once found returns on json(data)
-app.get('/api/tvShows/:id', (req,res) => {
-
-console.log(req.params.id);
-
-TvShowModel.findById(req.params.id,(error,data)=>{
-    res.json(data);
 
     })
 })
 
-//----------------------------------------------------------------------------------------------------
-//needed for edit(server side)
+//passes id and matches id, return on json when found
+app.get('/api/tvShows/:id', (req, res) => {
 
-app.put('/api/tvShows/:id', (req,res)=>{
+    console.log(req.params.id);
 
+    TvShowModel.findById(req.params.id, (error, data) => {
+        res.json(data);
+
+    })
+})
+
+//server sided editing
+app.put('/api/tvShows/:id', (req, res) => {
     console.log("edit: " + req.params.id);
-
-    //call back function
     TvShowModel.findByIdAndUpdate(req.params.id,
-         req.body,
-        { new: true},
-        (error,data)=>{
+        req.body,
+        { new: true },
+        (error, data) => {
             res.json(data);
         })
 })
 
 
-//---------------------------------------------------------------------------------------------------
-//(10)
-///////READING FROM MONGODB///////
-
+//reading from MongoDB
 app.get('/api/tvShows', (req, res) => {
 
-    TvShowModel.find((error,data)=>{
+    TvShowModel.find((error, data) => {
 
-        res.json({tvshows:data}) //now calling the data to have an array called movies in json 
+        res.json({ tvshows: data }) //calls the data to have an array called tvshows in Json
     })
 
 
 
 })
-   /*//(5)SENDS BACK A RESPONSE OF MOVIE JSON DATA 
-        const myMovies = 
-        [
-        {
-        "Title":"Avengers: Infinity War",
-        "Year":"2018",
-        "Poster":"https://m.media-amazon.com/images/M/MV5BMjMxNjY2MDU1OV5BMl5BanBnXkFtZTgwNzY1MTUwNTM@._V1_SX300.jpg"
-        },
-        {
-        "Title":"Captain America: Civil War",
-        "Year":"2016",
-        "Poster":"https://m.media-amazon.com/images/M/MV5BMjQ0MTgyNjAxMV5BMl5BanBnXkFtZTgwNjUzMDkyODE@._V1_SX300.jpg"
-        }
-        ]
 
-        res.status(200).json({movies:myMovies,message:'operation completed sucessfully!'})
-          */  
-        
-//---------------------------------------------------------------------------------------------------
-//(9) sending data up from the create.js page to the server.
-//(10) need this for code below to create up to mongoDB
-//AKA WRITING DATA
-
-app.post('/api/tvshows',(req,res) => {
+//used for server sided create
+app.post('/api/tvshows', (req, res) => {
     console.log('Tv Show Recieved');
     console.log(req.body);
     console.log(req.body.title);
     console.log(req.body.year);
     console.log(req.body.poster);
 
+    //allows data creted and passed up to mongoDB
+    TvShowModel.create({
+        title: req.body.title,
+        year: req.body.year,
+        poster: req.body.poster,
+    });
+})
 
-//(10) allows the data to be created which gets passed up to mongoDB
-TvShowModel.create({
-    title: req.body.title,
-    year: req.body.year,
-    poster: req.body.poster,
-});
-})
-//---------------------------------------------------------------------------------------------------
-//(6)RETURNING THE URL IN THE PAGE AND THE NAME INPUTTED TO FORUM USING (GET REQUEST!)
-    app.get('/name', (req, res) => {
-        console.log(req.query.fname) //outputs to console terminal below (fname)
-        console.log(req.query.lname) //outputs to console terminal below (lname)
-    res.send('working GET REQUEST ' + req.query.fname + ' ' + req.query.lname ); //displays to website screen 
-    })
-    
-//---------------------------------------------------------------------------------------------------
-//(7)RETURNING THE URL IN THE PAGE USING A (POST REQUEST!) - to use post (npm install body-parser)
-app.post('/name', (req, res) => {
-    console.log(req.body.fname) //outputs to console terminal below (fname)
-    console.log(req.body.lname) //outputs to console terminal below (lname)
-res.send('working POST REQUEST  ' + req.body.fname + ' ' + req.body.lname ); //displays to website screen 
-})
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))

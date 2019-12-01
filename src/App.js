@@ -1,9 +1,6 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import Content from './components/content';
-import Header from './components/header';
-import Footer from './components/footer';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
@@ -17,13 +14,15 @@ import NavLink from 'react-bootstrap/NavLink';
 
 class App extends React.Component {
 
+  //router for client side routing
+  //so user can go back and forward from each component
   render() {
     return (
       <BrowserRouter>
         <div className="App">
 
           <Navbar bg="light" variant="primary">
-            <Navbar.Brand href="#home">
+            <Navbar.Brand href="/">
               <img
                 alt=""
                 src="https://www.vippng.com/png/detail/29-295734_film-vector-reel-film-movie-icon.png"
@@ -37,7 +36,6 @@ class App extends React.Component {
               <Nav.Link href="/">Home</Nav.Link>
               <Nav.Link href="/read">Read</Nav.Link>
               <Nav.Link href="/create">Create</Nav.Link>
-              <Nav.Link href="/edit">Edit</Nav.Link>
               <NavLink href="/contact">Contact</NavLink>
             </Nav>
           </Navbar>
@@ -46,15 +44,16 @@ class App extends React.Component {
             <Route exact path="/" component={Content} />
             <Route path="/create" component={Create} />
             <Route path="/read" component={Read} />
-            <Route path="/edit/:id" component={Edit} />
             <Route path="/contact" component={Contact} />
           </Switch>
 
         </div>
 
+        {/* used to display footer at the base of every page */}
         <footer className="foot">
           <div>
             <h5>Tv Shows App</h5>
+            {/* shows copyright sign */}
             <span>&copy; Tv shows App 2019 </span>
           </div>
         </footer>
